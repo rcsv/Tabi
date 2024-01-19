@@ -20,3 +20,28 @@ To follow along with the examples in this chapter, the following software is req
 
 - Windows 10 version 1803 or newer. You can find your version of Windows in Settings | About.
 - Visual Studio 2019 version 16.9 or newer with the following workloads: .NET Desktop Development and UWP Development.
+- WinUI 3.0 project templates -- at the time of this writing, the templates can be downloaded from Visual Studio Marketplace at https://marketplace.visualstudio.com/items?itemName=Microsoft-WinUI.WinUIProjectTemplates. After WinUI 3.0 is released, the templates will likely be included with Visual Studio.
+
+> The source code for this chapter is available on GitHub at this URL: https://github.com/PacktPublishing/-Learn-WinUI-3.0/tree/master/Chapter01.
+
+### *NOTE*
+
+*The WinUI 3.0 site on Microsof Docs has up-to-date guidance on setting up a developer workstation for WinUI development: https://docs.microsoft.com/en-us/uwp/toolkits/winui3/*.
+
+## Before UWP - Windows 8 XAML applications
+
+Before UWP applications were launched with Windows 10 in 2015, there were XAML applications for Windows 8 and 8.1. The XAML syntax and many of the **application programming interfaces (APIs)** were the same, and they were Microsoft's next step in an attempt to achieve universal app development acros desktop, mobile, and other platforms (Xbox, mixed reality, and so on). A XAML app could be written for Windows 8 and Windows Phone. These projects would generate separates sets of binaries that could be installed on a PC or a Windows Phone.
+
+These apps had many other limitations that modern UWP apps do not. For instance, they only  ran fullscreen, as shown in the following screenshot:
+
+Figure 1.1 -- Windows 8 fullscreen app (sourced from Stack Overflow; reproduced under CC BY-SA 4.0 - https://creativecommons.org/licenses/by-sa/4.0/)
+
+Many other early restrictions on Windows 8 apps have been lessened or completely removed in UWP app development. Figure 1.2, which follows, documents these changes:
+
+| | Windows 8 XAML App | Windows 10 UWP App |
+|-|--------------------|--------------------|
+| Window Type | Full Screen Only | Resizable Window |
+| Device Type | Runs on PC only  | Multiple Windows 10 device types |
+| Number of Instances | 1 | 1 (default) or Multiple |
+| Console App Supported | No | Yes |
+| File System Access | Sandboxed - local storage only | Sandboxed by default, App can request additional access to user folders and removable devices |

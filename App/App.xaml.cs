@@ -1,50 +1,63 @@
-﻿using Microsoft.UI.Xaml;
+﻿using App.Rcsvpg.Services;
+using App.Rcsvpg.ViewModels;
+using App.Rcsvpg.Views;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Shapes;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+namespace App;
 
-namespace App
+
+public partial class App : Application
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
-    public partial class App : Application
+    public static IHost HostContainer { get; private set; }
+
+    public App()
     {
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
-        public App()
-        {
-            this.InitializeComponent();
-        }
-
-        /// <summary>
-        /// Invoked when the application is launched.
-        /// </summary>
-        /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
-        {
-            m_window = new MainWindow();
-            m_window.Activate();
-        }
-
-        private Window m_window;
+        this.InitializeComponent();
     }
+
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    {
+        m_window = new MainWindow();
+
+        // Add Frame + Insert Page
+        var rootFrame = new Frame();
+        RegisterComponents(rootFrame);
+        rootFrame.NavigationFailed += RootFrame_NavigationFailed;
+        rootFrame.Navigate(typeof(MainPage), args);
+
+        m_window.Content = rootFrame;
+        m_window.Activate();
+    }
+
+    private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
+    {
+        throw new Exception($"Error loading page {e.SourcePageType.FullName}");
+    }
+
+    // RegisterComponents
+    // アプリケーションを動作させるための関連情報を呼び出しておく
+    //
+    private void RegisterComponents(Frame rootFrame)
+    {
+        var nS = new NavigationService(rootFrame);
+
+        nS.Configure(nameof(MainPage), typeof(MainPage));       // MainPage
+        //nS.Configure(nameof(BuddyPage), typeof(BuddyPage));
+
+        HostContainer = Host.CreateDefaultBuilder().ConfigureServices(services =>
+        {
+            services.AddSingleton<INavigationService>(nS);
+            // AddSingleton<IDataService, DataService>(); ... not implemented
+            services.AddTransient<MainViewModel>();
+
+        }).Build();
+
+    }
+
+    private Window m_window;
 }

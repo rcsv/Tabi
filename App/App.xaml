@@ -11,6 +11,9 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
+            <Style TargetType="Button">
+                <Setter Property="CornerRadius" Value="6"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

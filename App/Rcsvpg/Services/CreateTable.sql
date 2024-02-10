@@ -1,0 +1,35 @@
+﻿/* 
+	CREATE TABLE 
+ */
+-- CREATE TABLE Buddies (
+--	Id INTEGER PRIMARY KEY AUTOINCREMENT,
+--	FirstName	TEXT NOT NULL,
+--	LastName	TEXT NOT NULL,
+--	PassportNo	TEXT NOT NULL UNIQUE,
+--	Birthday	DATE NOT NUll
+--);
+
+--CREATE TABLE Tabis (
+--	Id INTEGER PRIMARY KEY AUTOINCREMENT,
+--	PlanName	TEXT NOT NULL,
+--	StartDate	DATE NOT NULL,
+--	ReturnDate	DATE NOT NULL
+--);
+
+--CREATE TABLE Itineraries (
+--	Id INTEGER PRIMARY KEY AUTOINCREMENT,
+--	ItineraryName TEXT NOT NULL,
+--	TabiId		INTEGER NOT NULL,
+--	StartTime	DATETIME NOT NULL,
+--	EndTime		DATETIME NOT NULL,
+--	ItineraryType TEXT NOT NULL,
+--	FOREIGN KEY(TabiId) references Tabis(Id) ON DELETE CASCADE
+--);
+
+--CREATE TABLE TabiBuddies (
+--	TabiId		INTEGER NOT NULL,
+--	BuddyId		INTEGER NOT NULL,
+--	PRIMARY KEY(TabiId, BuddyId),
+--	FOREIGN KEY(TabiId) REFERENCES Tabis(Id) ON DELETE CASCADE,
+--	FOREIGN KEY(BuddyId) REFERENCES Buddies(Id) ON DELETE CASCADE
+-- );
